@@ -2,14 +2,14 @@
 
 <br/>
 
+```
 ██████╗ ██╗   ██╗██████╗ ██████╗ ██╗   ██╗ ██████╗
 ██╔══██╗██║   ██║██╔══██╗██╔══██╗╚██╗ ██╔╝██╔═══██╗
 ██████╔╝██║   ██║██║  ██║██║  ██║ ╚████╔╝ ██║   ██║
 ██╔══██╗██║   ██║██║  ██║██║  ██║  ╚██╔╝  ██║▄▄ ██║
 ██████╔╝╚██████╔╝██████╔╝██████╔╝   ██║   ╚██████╔╝
-╚═════╝  ╚═════╝ ╚═════╝ ╚═════╝    ╚═╝    ╚══▀▀═╝
-
-text
+╚═════╝  ╚═════╝ ╚═════╝ ╚═════╝   ╚═╝    ╚══▀▀═╝
+```
 
 **A fully local, privacy-first voice assistant — no cloud, no subscriptions.**
 
@@ -112,9 +112,13 @@ Every component is modular and independently replaceable. Swap the STT engine, c
   │ Session  │──────────────────────▶  📄 sessions/YYYY-MM-DD/transcript.json
   │  Logger  │
   └──────────┘
+```
 
-📁 Project Structure
-text
+<br/>
+
+## 📁 Project Structure
+
+```text
 BuddyQ/
 │
 ├── start.bat                    ← Single launch file — runs everything
@@ -159,68 +163,90 @@ BuddyQ/
     └── YYYY-MM-DD_HH-MM/
         ├── transcript.json      ← Full conversation as JSON
         └── latest.txt           ← Most recent user utterance
+```
 
-🖥️ Hardware Requirements
+<br/>
+
+## 🖥️ Hardware Requirements
+
 BuddyQ is designed to run on everyday laptops. A discrete GPU (e.g. GTX 1660) helps a lot for larger vision models in LM Studio, but CPU-only still works with small models.
 
-Component	Minimum	Recommended
-CPU	4-core with AVX2	Intel i5/i7 6th gen+ or AMD Ryzen 5+
-RAM	8 GB	16 GB
-Storage	5 GB free	10 GB free
-GPU	Not required	6 GB+ VRAM if you want fast vision (Qwen3-VL-4B, etc.)
-OS	Windows 10/11	Windows 10/11
-Microphone	Any USB or built-in	Headset for best STT accuracy
-Tested on: Intel i7-6700HQ · 16 GB RAM · GTX 1660 · Windows 11 · LM Studio with Qwen3.5-4B and Qwen3-VL-4B.
+| Component | Minimum | Recommended |
+|---|---|---|
+| CPU | 4-core with AVX2 | Intel i5/i7 6th gen+ or AMD Ryzen 5+ |
+| RAM | 8 GB | 16 GB |
+| Storage | 5 GB free | 10 GB free |
+| GPU | Not required | 6 GB+ VRAM if you want fast vision (Qwen3-VL-4B, etc.) |
+| OS | Windows 10/11 | Windows 10/11 |
+| Microphone | Any USB or built-in | Headset for best STT accuracy |
 
+> Tested on: Intel i7-6700HQ · 16 GB RAM · GTX 1660 · Windows 11 · LM Studio with Qwen3.5-4B and Qwen3-VL-4B.
 
-⚡ Installation
-Step 1 — Clone the repository
-powershell
-git clone https://github.com/yourusername/BuddyQ.git
+<br/>
+
+## ⚡ Installation
+
+### Step 1 — Clone the repository
+
+```powershell
+git clone https://github.com/jaknak13-source/BuddyQ.git
 cd BuddyQ
-Step 2 — Create the Python virtual environment
-powershell
+```
+
+### Step 2 — Create the Python virtual environment
+
+```powershell
 python -m venv stt\venv
 stt\venv\Scripts\python.exe -m pip install --upgrade pip
 stt\venv\Scripts\python.exe -m pip install -r requirements.txt
-Step 3 — Download Piper TTS
-(Use the same steps as before: download piper.exe and a voice .onnx + .onnx.json into tts\voices\.)
+```
 
-Step 4 — Choose your LLM backend
-BuddyQ expects an OpenAI-compatible HTTP endpoint configured via core/config.py:
+### Step 3 — Download Piper TTS
 
-python
+Download `piper.exe` and a voice `.onnx` + `.onnx.json` pair from the [Piper releases page](https://github.com/rhasspy/piper/releases) and place them into `tts\voices\`.
+
+### Step 4 — Choose your LLM backend
+
+BuddyQ expects an OpenAI-compatible HTTP endpoint configured via `core/config.py`:
+
+```python
 # core/config.py
 LLM_API_URL        = "http://127.0.0.1:1234/v1"  # LM Studio default
 MODEL_NAME         = "qwen3.5-4b"                # main text model
 VISION_MODEL_NAME  = "qwen3-vl-4b-instruct"      # vision / screen model
-You have two options:
+```
 
-Option A — LM Studio (recommended)
-Install LM Studio.
+**Option A — LM Studio (recommended)**
 
-Download a text model (e.g. qwen3.5-4b) and a vision model (e.g. qwen3-vl-4b-instruct).
+1. Install [LM Studio](https://lmstudio.ai).
+2. Download a text model (e.g. `qwen3.5-4b`) and a vision model (e.g. `qwen3-vl-4b-instruct`).
+3. Start the LM Studio local server on port 1234 with both models available.
+4. Copy the model IDs from LM Studio into `MODEL_NAME` and `VISION_MODEL_NAME`.
 
-Start the LM Studio local server on port 1234 with both models available.
+**Option B — Raw llama.cpp server**
 
-Copy the model IDs from LM Studio into MODEL_NAME and VISION_MODEL_NAME.
+Set `LLM_API_URL` to `http://127.0.0.1:8080/v1` and start `llama-server.exe` with OpenAI-compatible endpoints enabled.
 
-Option B — Raw llama.cpp server
-If you prefer the old llama.cpp server, set LLM_API_URL to http://127.0.0.1:8080/v1 and start llama-server.exe with OpenAI-compatible endpoints enabled.
+### Step 5 — Start your backend
 
-Step 5 — Start your backend
-LM Studio: click “Start Server” and wait until /v1/chat/completions is available.
+- **LM Studio:** click "Start Server" and wait until `/v1/chat/completions` is available.
+- **llama.cpp:** run:
 
-llama.cpp: run e.g.:
-
-powershell
+```powershell
 models\llama-server.exe --model models\your-model.gguf --port 8080 --ctx-size 4096 --threads 4
-Step 6 — Launch BuddyQ
-powershell
-start.bat
+```
 
-⚙️ Configuration (updated)
-python
+### Step 6 — Launch BuddyQ
+
+```powershell
+start.bat
+```
+
+<br/>
+
+## ⚙️ Configuration
+
+```python
 # core/config.py (excerpt)
 
 # ── LLM backend ───────────────────────────────────────────────
@@ -231,44 +257,45 @@ VISION_MODEL_NAME  = "qwen3-vl-4b-instruct"
 # ── Audio / STT ───────────────────────────────────────────────
 SAMPLE_RATE        = 16000
 SILENCE_THRESHOLD  = 0.015
-SILENCE_DURATION   = 1.5
-MAX_RECORD_SECONDS = 8
+SILENCE_DURATION   = 2.1
+MAX_RECORD_SECONDS = 45
 
 WHISPER_MODEL      = "tiny"
 WHISPER_COMPUTE    = "int8"
 WHISPER_THREADS    = 4
-python
+```
+
+```python
 # core/main.py (top)
 
 MODEL_NAME  = config.MODEL_NAME
-MAX_TOKENS  = 20000
-TEMPERATURE = 0.45
+MAX_TOKENS  = 2000
+TEMPERATURE = 0.25
 
 _NO_THINKING = {"chat_template_kwargs": {"thinking": False}}
 
 llm = OpenAI(base_url=config.LLM_API_URL, api_key="no-key-needed")
 _ws_set_llm(llm, MODEL_NAME, _NO_THINKING)
+```
 
-👀 Screen / Vision Tool
+<br/>
+
+## 👀 Screen / Vision Tool
+
 The screen tool lets the assistant see your current desktop:
 
-Summarise the page on screen.
+- Summarise the page on screen.
+- Describe UI elements and diagrams.
+- Explain code shown in your editor.
+- Comment on obvious visual red flags on websites (typos, mismatched logos, weird URLs).
 
-Describe UI elements and diagrams.
+**Implementation highlights** (`core/tools/screen_tool.py`):
 
-Explain code shown in your editor.
+- Uses `mss` to capture the primary monitor.
+- Encodes the screenshot as base64 PNG.
+- Calls the vision model via the OpenAI-compatible LM Studio API:
 
-Comment on obvious visual red flags on websites (typos, mismatched logos, weird URLs).
-
-Implementation highlights (core/tools/screen_tool.py):
-
-Uses mss to capture the primary monitor.
-
-Encodes the screenshot as base64 PNG.
-
-Calls the vision model via OpenAI-compatible LM Studio API:
-
-python
+```python
 resp = client.chat.completions.create(
     model=VISION_MODEL_NAME,
     messages=[
@@ -286,126 +313,114 @@ resp = client.chat.completions.create(
     stream=False,
     extra_body=_NO_THINKING,
 )
-Use phrases like:
+```
 
-“What’s on my screen?”
+**Example phrases:**
+- *"What's on my screen?"*
+- *"Summarise this page."*
+- *"Explain this code on screen."*
+- *"Does this website look legit visually?"*
 
-“Summarise this page.”
+<br/>
 
-“Explain this code on screen.”
+## 🌐 Web Search
 
-“Does this website look legit visually?”
+`core/tools/web_search.py` implements a five-step DuckDuckGo pipeline:
 
-
-🌐 Web Search (updated pipeline)
-core/tools/web_search.py implements a five-step DuckDuckGo pipeline:
-
-Optional query optimiser using the main LLM (skipped for simple queries).
-
-DuckDuckGo HTML search (up to 10 snippets, 8s timeout, 3 retries).
-
-Regex fast-path extraction for prices, officeholders, and basic stats.
-
-Page fetch only when snippets are thin (< 60 words).
-
-LLM summariser with max_tokens=120 and thinking disabled.
+1. **Optional query optimiser** — uses the main LLM to refine the query (skipped for simple lookups).
+2. **DuckDuckGo HTML search** — up to 10 snippets, 8s timeout, 3 retries.
+3. **Regex fast-path extraction** — instantly handles prices, officeholders, and basic stats.
+4. **Page fetch** — only triggered when snippets are thin (< 60 words).
+5. **LLM summariser** — `max_tokens=120`, thinking disabled.
 
 A credible-domain list prioritises sites like:
 
-wikipedia.org, britannica.com
+- `wikipedia.org`, `britannica.com`
+- `reuters.com`, `apnews.com`, `bbc.com`
+- `coinmarketcap.com`, `coingecko.com`, `coindesk.com`
+- `nature.com`, `nih.gov`, `nasa.gov`
+- …and many others
 
-reuters.com, apnews.com, bbc.com
+<br/>
 
-coinmarketcap.com, coingecko.com, coindesk.com
+## 🧠 Memory System
 
-nature.com, nih.gov, nasa.gov
+Memory is stored in `memory/memory.json` as:
 
-many others
+- **`facts`** — stable personal info (name, location, preferences).
+- **`episodes`** — short summaries of notable conversations.
 
+Both are loaded on startup and injected into a single combined system message so Qwen-style chat templates are respected.
 
-🧠 Memory System
-Memory is stored in memory/memory.json as:
+<br/>
 
-facts: stable personal info (name, location, preferences).
+## 🗣️ Voice Commands
 
-episodes: short summaries of notable conversations.
+| Phrase | Action |
+|---|---|
+| Any question | Normal answer |
+| `stop`, `cancel`, `shut up`, `forget it`, `stop talking` | Immediately abort TTS and LLM generation |
 
-Loaded on startup and injected into a single combined system message so Qwen-style chat templates are respected.
+<br/>
 
+## 🧩 Adding a New Tool
 
-🗣️ Voice Commands
-Examples:
+Create `core/tools/my_tool.py` implementing `BaseTool`, then register it in `core/tools/__init__.py`. The orchestrator discovers tools by name and keyword list — you don't need to change the main pipeline.
 
-Any question → normal answer.
+<br/>
 
-stop, cancel, shut up, forget it, stop talking → immediately abort TTS and LLM.
+## 🔧 Troubleshooting
 
+| Symptom | Fix |
+|---|---|
+| No audio output | Check Windows default audio device and Piper logs |
+| Model not found / 404 | Verify `LLM_API_URL` and `MODEL_NAME` against LM Studio server logs |
+| Vision very slow | Downscale screenshots in `screen_tool.py` and keep LM Studio context length reasonable (e.g. 8k–12k) |
+| Search too slow | DDG and summariser have hard timeouts; ensure network is OK and reduce `MAX_TOTAL_SECS` if desired |
 
-🧩 Adding a New Tool
-Create core/tools/my_tool.py implementing BaseTool, then register it in core/tools/__init__.py. The orchestrator discovers tools by name and keyword list; you don’t need to change the main pipeline.
+<br/>
 
+## 🗺️ Roadmap
 
-🔧 Troubleshooting
-No audio output → check Windows default audio device and Piper logs.
+- [x] Continuous VAD-based listening
+- [x] Local LLM via LM Studio / llama.cpp
+- [x] Web search with credible source filtering
+- [x] Persistent cross-session memory
+- [x] Voice interrupt (stop/cancel)
+- [x] Speech normalizer (currencies, units, abbreviations)
+- [x] Thinking / reasoning token suppression
+- [x] Screen / vision tool using local models
+- [ ] Wake word detection
+- [ ] Calendar and reminders tool
+- [ ] Smart home / Home Assistant integration
+- [ ] Multi-language STT and TTS
+- [ ] Linux and macOS support
+- [ ] Simple GUI / tray icon
+- [ ] Possible robotics application / mobile assistant
 
-Model not found / 404 → verify LLM_API_URL and MODEL_NAME against LM Studio server logs.
+<br/>
 
-Vision very slow → downscale screenshots in screen_tool.py and keep LM Studio context length reasonable (e.g. 8k–12k).
+## 🤝 Contributing
 
-Search too slow → DDG and summariser have hard timeouts; ensure network is OK and reduce MAX_TOTAL_SECS if desired.
-
-
-🗺️ Roadmap
- Continuous VAD-based listening
-
- Local LLM via LM Studio / llama.cpp
-
- Web search with credible source filtering
-
- Persistent cross-session memory
-
- Voice interrupt (stop/cancel)
-
- Speech normalizer (currencies, units, abbreviations)
-
- Thinking / reasoning token suppression
-
- Screen / vision tool using local models
-
- Wake word detection
-
- Calendar and reminders tool
-
- Smart home / Home Assistant integration
-
- Multi-language STT and TTS
-
- Linux and macOS support
-
- Simple GUI / tray icon
- Possible robitics application/mobile assistent 
-
-
-🤝 Contributing
 Fork, create a branch, commit, and open a PR. Good first issues:
 
-New tools (calendar, browser automation, IDE helpers).
+- New tools (calendar, browser automation, IDE helpers).
+- Performance improvements for screen / vision and search.
+- Extended credible-domain list.
+- Cross-platform audio support.
 
-Performance improvements for screen / vision and search.
+<br/>
 
-Extended credible-domain list.
+## 📄 License
 
-Cross-platform audio support.
+MIT License — see [LICENSE](LICENSE) for full text.
 
-
-📄 License
-MIT License — see LICENSE for full text.
+---
 
 <div align="center">
+
 Built to run anywhere. Designed to stay private.
 
-Star the repo if you find it useful.
+⭐ Star the repo if you find it useful · Issues and PRs welcome
 
-Issues and PRs welcome.
-
-</div
+</div>
