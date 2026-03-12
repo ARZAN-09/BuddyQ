@@ -1,0 +1,7 @@
+stt/model_cache/
+tts/voices/
+sessions/
+memory/
+*.wav
+*.onnx
+*.gguf
