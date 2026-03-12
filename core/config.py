@@ -43,7 +43,7 @@ MAX_RECORD_SECONDS = 90    # hard cap on one recording
 # WHISPER SETTINGS
 # ============================================================================
 
-WHISPER_MODEL   = "tiny"  # tiny / base / small
+WHISPER_MODEL   = "base"  # tiny / base / small
 WHISPER_COMPUTE = "int8"  # int8 = fastest on CPU
 WHISPER_THREADS = 4       # match physical core count (i7-6700HQ = 4)
 
@@ -55,12 +55,14 @@ LLM_API_URL = "http://127.0.0.1:1234/v1"
 
 # Main chat/text model — must match the exact id shown in LM Studio server tab
 # or at http://127.0.0.1:1234/v1/models
+
+
 # Example for llama.cpp: "qwen"  |  Example for LM Studio: "qwen3.5-4b-instruct"
-MODEL_NAME = "qwen3.5-4b-instruct"  # <-- check exact id at /v1/models and paste here
+MODEL_NAME = "qwen2.5-coder-7b-instruct"  # <-- check exact id at /v1/models and paste here
 
 # Vision model for the screen tool — set to the same value if your main model
 # is already a VL model (e.g. Qwen3-VL), otherwise point to a separate VL model id
-VISION_MODEL_NAME = "qwen3.5-4b-instruct"  # <-- change to VL model id when you load one
+VISION_MODEL_NAME = "llava-1.6-mistral-7b"  # <-- change to VL model id when you load one
 
 # ============================================================================
 # AUTO-DETECT VOICE FILE

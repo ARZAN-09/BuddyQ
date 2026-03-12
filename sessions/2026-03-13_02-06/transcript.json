@@ -1,0 +1,17 @@
+[
+  {
+    "role": "user",
+    "text": "Hello there. What can you do for me?",
+    "timestamp": "02:06:56"
+  },
+  {
+    "role": "user",
+    "text": "Hello there. What can you do for me?",
+    "timestamp": "02:06:56"
+  },
+  {
+    "role": "assistant",
+    "text": "Hi! I can assist with a variety of tasks like answering questions, providing information, helping with decision-making, setting reminders, and more. Just let me know what you need help with!",
+    "timestamp": "02:07:25"
+  }
+]

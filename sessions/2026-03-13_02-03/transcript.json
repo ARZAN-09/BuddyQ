@@ -1,0 +1,17 @@
+[
+  {
+    "role": "user",
+    "text": "I... how are you?",
+    "timestamp": "02:04:05"
+  },
+  {
+    "role": "user",
+    "text": "I... how are you?",
+    "timestamp": "02:04:05"
+  },
+  {
+    "role": "assistant",
+    "text": "Sorry, I could not reach the language model.",
+    "timestamp": "02:04:06"
+  }
+]

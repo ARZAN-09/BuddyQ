@@ -1,0 +1,32 @@
+[
+  {
+    "role": "user",
+    "text": "Can you search what we showed you, Khan?",
+    "timestamp": "02:29:58"
+  },
+  {
+    "role": "user",
+    "text": "Can you search what we showed you, Khan?",
+    "timestamp": "02:29:58"
+  },
+  {
+    "role": "assistant",
+    "text": "I'm sorry, but I couldn't find any information about an \"RU120 match\" in the search results you provided. The results seem to be related to cricket schedules and tournaments for 2026, but there's nothing specific about an RU120 match from that timeframe. Could you please provide more details or context so I can assist you better?",
+    "timestamp": "02:30:17"
+  },
+  {
+    "role": "user",
+    "text": "I met you 20 cricket.",
+    "timestamp": "02:30:43"
+  },
+  {
+    "role": "user",
+    "text": "I met you 20 cricket.",
+    "timestamp": "02:30:43"
+  },
+  {
+    "role": "assistant",
+    "text": "I'm sorry, but I didn't understand what you meant by \"I met you 20 cricket.\" Could you please repeat that or provide more context so I can assist you better?",
+    "timestamp": "02:30:57"
+  }
+]
