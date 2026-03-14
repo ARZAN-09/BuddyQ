@@ -407,6 +407,7 @@ Fork, create a branch, commit, and open a PR. Good first issues:
 - New tools (calendar, browser automation, IDE helpers).
 - Performance improvements for screen / vision and search.
 - Extended credible-domain list.
+- New fool so cool
 - Cross-platform audio support.
 
 <br/>
